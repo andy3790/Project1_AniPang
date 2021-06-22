@@ -11,14 +11,29 @@ typedef struct {
 }Ints;
 
 typedef struct {
+	RECT Client_Rect;
+
+}Rects;
+
+typedef struct {
 	HDC hDC;
-}hDCs;
+	HDC hMemDC;
+
+}HDCs;
+
+typedef struct {
+	HBITMAP hCompatibleBit;
+
+}HBITMAPs;
+
 
 // 함수 인자용 구조체
 typedef struct {
 	Booleans booleas;
 	Ints ints;
-	hDCs hDCs;
+	Rects rects;
+	HDCs hDCs;
+	HBITMAPs hBITMAPs;
 }Master;// 임시 이름
 
 //main

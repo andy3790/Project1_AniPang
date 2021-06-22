@@ -48,15 +48,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance, LPSTR lpszCmdPa
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 	PAINTSTRUCT ps;
-	Master master;
+	static Master master;
+	
 
 	switch (uMsg) {
 	case WM_CREATE:
-		master.hDCs.hDC = GetDC(hWnd);
+		master.hDCs.hDC = GetDC(hWnd);//?
 		ReleaseDC(hWnd, master.hDCs.hDC);
+		GetClientRect(hWnd, &master.rects.Client_Rect);
+
+
 		break;
 	case WM_PAINT:
 		master.hDCs.hDC = BeginPaint(hWnd, &ps);
+		master.hBITMAPs.hCompatibleBit = CreateCompatibleBitmap(master.hDCs.hDC, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
+		master.hDCs.hMemDC = CreateCompatibleDC(master.hDCs.hDC);
+		SelectObject(master.hDCs.hMemDC, master.hBITMAPs.hCompatibleBit);
+		// 더블버퍼링
+
+		// 끝
+		BitBlt(master.hDCs.hDC, 0, 0, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom, master.hDCs.hMemDC, 0, 0, SRCCOPY);
+
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
