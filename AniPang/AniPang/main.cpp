@@ -53,6 +53,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		hDC = GetDC(hWnd);
 		ReleaseDC(hWnd, hDC);
 		break;
+	case WM_KEYDOWN:
+		if (wParam == 'q' || wParam == 'Q') {
+			DestroyWindow(hWnd);
+		}
+		break;
 	case WM_PAINT:
 		hDC = BeginPaint(hWnd, &ps);
 		EndPaint(hWnd, &ps);
