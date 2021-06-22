@@ -15,7 +15,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance, LPSTR lpszCmdPa
 	HWND hWnd;
 	MSG Message;
 	WNDCLASSEX WndClass;
-	g_hinst = hInstance;
+	g_hinst = hInstance;	
 
 	WndClass.cbSize = sizeof(WndClass);
 	WndClass.style = CS_HREDRAW | CS_VREDRAW;
@@ -48,15 +48,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance, LPSTR lpszCmdPa
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 	PAINTSTRUCT ps;
-	HDC hDC;
+	Master master;
 
 	switch (uMsg) {
 	case WM_CREATE:
-		hDC = GetDC(hWnd);
-		ReleaseDC(hWnd, hDC);
+		master.hDCs.hDC = GetDC(hWnd);
+		ReleaseDC(hWnd, master.hDCs.hDC);
 		break;
 	case WM_PAINT:
-		hDC = BeginPaint(hWnd, &ps);
+		master.hDCs.hDC = BeginPaint(hWnd, &ps);
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
