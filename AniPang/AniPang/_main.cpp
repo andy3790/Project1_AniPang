@@ -41,10 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance, LPSTR lpszCmdPa
 	}
 	return Message.wParam;
 }
-// tetstststt - fasdfasdfsda
-// test_Andy
-// test_Andy 2
-// 무야호 가능한 부분?
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 	PAINTSTRUCT ps;
@@ -53,6 +50,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	switch (uMsg) {
 	case WM_CREATE:
 		master.hDCs.hDC = GetDC(hWnd);
+		GetClientRect(hWnd, &master.rects.WndRect);
 		ReleaseDC(hWnd, master.hDCs.hDC);
 		break;
 	case WM_PAINT:

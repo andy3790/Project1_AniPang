@@ -12,13 +12,18 @@ typedef struct {
 
 typedef struct {
 	HDC hDC;
-}hDCs;
+}HDCs;
+
+typedef struct {
+	RECT WndRect;
+}Rects;
 
 // 함수 인자용 구조체
 typedef struct {
 	Booleans booleas;
 	Ints ints;
-	hDCs hDCs;
+	HDCs hDCs;
+	Rects rects;
 }Master;// 임시 이름
 
 //main
