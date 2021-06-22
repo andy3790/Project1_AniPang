@@ -22,7 +22,7 @@ typedef struct {
 }HDCs;
 
 typedef struct {
-	HBITMAP hCompatibleBit;
+	HBITMAP hMemDC_Bit;
 
 }HBITMAPs;
 
