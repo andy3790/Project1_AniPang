@@ -11,19 +11,29 @@ typedef struct {
 }Ints;
 
 typedef struct {
+	RECT Client_Rect;
+
+}Rects;
+
+typedef struct {
 	HDC hDC;
+	HDC hMemDC;
+
 }HDCs;
 
 typedef struct {
-	RECT WndRect;
-}Rects;
+	HBITMAP hMemDC_Bit;
+
+}HBITMAPs;
+
 
 // 함수 인자용 구조체
 typedef struct {
 	Booleans booleas;
 	Ints ints;
-	HDCs hDCs;
 	Rects rects;
+	HDCs hDCs;
+	HBITMAPs hBITMAPs;
 }Master;// 임시 이름
 
 //main
@@ -37,3 +47,4 @@ typedef struct {
 //Ui
 
 //Util
+void Print2Client(Master master); //최종 출력함수
