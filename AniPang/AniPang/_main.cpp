@@ -1,5 +1,4 @@
-#include <Windows.h>
-#include <tchar.h>
+#include "main.h"
 
 //#ifdef _DEBUG
 //#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
