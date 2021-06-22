@@ -64,17 +64,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	case WM_CREATE:
 		master.hDCs.hDC = GetDC(hWnd);
 		GetClientRect(hWnd, &master.rects.Client_Rect);
+		//매번 비트맵을 만들 이유가 없음. Create 할때 한번만 만들게 함
 		master.hBITMAPs.hMemDC_Bit = CreateCompatibleBitmap(master.hDCs.hDC, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
+		LoadBlocksBitmap(&master);	//블럭의 비트맵 로드
 		ReleaseDC(hWnd, master.hDCs.hDC);
-
 
 		break;
 	case WM_KEYDOWN:
-		if (wParam == 'q' || wParam == 'Q' || wParam == VK_ESCAPE) { DestroyWindow(hWnd); }
+		if (wParam == 'q' || wParam == 'Q' || wParam == VK_ESCAPE) { DestroyWindow(hWnd); } //임시 종료 키 설정 q/Q/ESC
+		InvalidateRect(hWnd, NULL, FALSE);
 		break;
 	case WM_PAINT:
 		master.hDCs.hDC = BeginPaint(hWnd, &ps);
-		Print2Client(master);
+		Print2Client(master);	//출력 함수화
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
