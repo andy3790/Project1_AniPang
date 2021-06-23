@@ -68,7 +68,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		//매번 비트맵을 만들 이유가 없음. Create 할때 한번만 만들게 함
 		master.hBITMAPs.hMemDC_Bit = CreateCompatibleBitmap(master.hDCs.hDC, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
 		LoadBlocksBitmap(&master);	//블럭의 비트맵 로드
-		SetBlockCount(&master, 8, 8);
+		SetBlockCount(&master, 8, 8); //블럭의 크기 초기화
 		ReleaseDC(hWnd, master.hDCs.hDC);
 
 		break;
@@ -82,8 +82,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_SIZE:
-		//GetClientRect(hWnd, &master.rects.Client_Rect);
-
+		master.hDCs.hDC = GetDC(hWnd);
+		DeleteObject(master.hBITMAPs.hMemDC_Bit);
+		GetClientRect(hWnd, &master.rects.Client_Rect);
+		master.hBITMAPs.hMemDC_Bit = CreateCompatibleBitmap(master.hDCs.hDC, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
+		SetBlockCount(&master, 8, 8); //블럭의 크기 초기화
+		ReleaseDC(hWnd, master.hDCs.hDC);
+		InvalidateRect(hWnd, NULL, FALSE);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);

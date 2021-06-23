@@ -17,5 +17,4 @@ void SetBlockCount(Master* master, int x, int y) {
 	(*master).blocks.PSizeY = (*master).rects.Client_Rect.bottom * 3 / 5 / y;
 	(*master).blocks.StartX = (*master).rects.Client_Rect.left;
 	(*master).blocks.StartY = (*master).rects.Client_Rect.bottom / 5;
-
 }
