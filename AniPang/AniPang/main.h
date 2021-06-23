@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <tchar.h>
+#include <time.h>
 #pragma comment (lib, "msimg32.lib")
 
 //변수 선언용 구조체
@@ -35,9 +36,21 @@ typedef struct {
 
 }HBITMAPs;
 
-typedef struct Blocks {
+typedef struct Block {
 	int type; // 1-개 2-병아리 3-쥐 4-고양이 5-원숭이 6-돼지
-}Blocks; //동물 블럭 구조체
+	Block* next;
+	Block* prev;
+}Block; //동물 블럭 개별 구조체
+
+typedef struct Blocks {
+	Block* block; //가로 동적할당
+	int Vcount; //가로 개수 (Vertical)
+	int Hcount; //세로 개수 (Horizontal)
+	int PSizeX; //가로 출력 크기
+	int PSizeY; //세로 출력 크기
+	int StartX; //가로 출력 시작지점
+	int StartY; //세로 출력 시작지점
+}Blocks; //동물 블럭 묶음 구조체
 
 
 // 함수 인자용 구조체
@@ -47,6 +60,7 @@ typedef struct {
 	Rects rects;
 	HDCs hDCs;
 	HBITMAPs hBITMAPs;
+	Blocks blocks;
 }Master;// 임시 이름
 
 //main
@@ -54,6 +68,7 @@ typedef struct {
 //Blocks
 // 1-개 2-병아리 3-쥐 4-고양이 5-원숭이 6-돼지
 void LoadBlocksBitmap(Master* master);
+void SetBlockCount(Master* master, int x, int y);
 
 //Item
 

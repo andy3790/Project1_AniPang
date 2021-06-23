@@ -38,7 +38,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance, LPSTR lpszCmdPa
 		WS_SYSMENU | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_THICKFRAME,		// 윈도우 스타일
 		100,						// 윈도우 위치, x좌표 ---*
 		50,							// 윈도우 위치, y좌표 ---*
-		600,						// 윈도우 가로(폭) 크기 ---*
+		489,						// 윈도우 가로(폭) 크기 ---*
 		800,						// 윈도우 세로(높이) 크기 ---*
 		NULL,						// 부모 윈도우 핸들
 		NULL,						// 메뉴 핸들
@@ -62,11 +62,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 	switch (uMsg) {
 	case WM_CREATE:
+		srand((unsigned int)time(NULL)); //랜덤 시드값 초기화
 		master.hDCs.hDC = GetDC(hWnd);
 		GetClientRect(hWnd, &master.rects.Client_Rect);
 		//매번 비트맵을 만들 이유가 없음. Create 할때 한번만 만들게 함
 		master.hBITMAPs.hMemDC_Bit = CreateCompatibleBitmap(master.hDCs.hDC, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
 		LoadBlocksBitmap(&master);	//블럭의 비트맵 로드
+		SetBlockCount(&master, 8, 8);
 		ReleaseDC(hWnd, master.hDCs.hDC);
 
 		break;
