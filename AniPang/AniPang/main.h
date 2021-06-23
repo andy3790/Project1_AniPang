@@ -3,6 +3,16 @@
 #include <tchar.h>
 #pragma comment (lib, "msimg32.lib")
 
+//Blocks
+#define BLOCK_TYPE_DOG		1
+#define BLOCK_TYPE_CHICK	2
+#define BLOCK_TYPE_MOUSE	3
+#define BLOCK_TYPE_CAT		4
+#define BLOCK_TYPE_MONKEY	5
+#define BLOCK_TYPE_PIG		6
+
+
+
 //변수 선언용 구조체
 typedef struct {
 	
@@ -42,7 +52,7 @@ typedef struct Blocks {
 
 // 함수 인자용 구조체
 typedef struct {
-	Booleans booleas;
+	Booleans booleans;
 	Ints ints;
 	Rects rects;
 	HDCs hDCs;

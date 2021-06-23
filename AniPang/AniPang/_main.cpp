@@ -79,6 +79,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		Print2Client(master);	//출력 함수화
 		EndPaint(hWnd, &ps);
 		break;
+	case WM_SIZE:
+		//GetClientRect(hWnd, &master.rects.Client_Rect);
+
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
