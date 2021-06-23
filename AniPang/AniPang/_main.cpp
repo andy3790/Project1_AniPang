@@ -83,7 +83,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		break;
 	case WM_SIZE:
 		master.hDCs.hDC = GetDC(hWnd);
-		DeleteObject(master.hBITMAPs.hMemDC_Bit);
+		DeleteObject(master.hBITMAPs.hMemDC_Bit);	//이미 만들어져있으니 삭제
 		GetClientRect(hWnd, &master.rects.Client_Rect);
 		master.hBITMAPs.hMemDC_Bit = CreateCompatibleBitmap(master.hDCs.hDC, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
 		SetBlockCount(&master, 8, 8); //블럭의 크기 초기화
