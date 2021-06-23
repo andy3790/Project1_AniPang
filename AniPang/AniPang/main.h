@@ -11,6 +11,8 @@
 #define BLOCK_TYPE_CAT		4
 #define BLOCK_TYPE_MONKEY	5
 #define BLOCK_TYPE_PIG		6
+#define BLOCK_PRINT_VERTICAL 1
+#define BLOCK_PRINT_HORIZONTAL 2
 
 
 
@@ -54,12 +56,13 @@ typedef struct Block {
 
 typedef struct Blocks {
 	Block* block; //가로 동적할당
-	int Vcount; //가로 개수 (Vertical)
-	int Hcount; //세로 개수 (Horizontal)
+	int Hcount; //가로 개수 (Horizontal)
+	int Vcount; //세로 개수 (Vertical)
 	int PSizeX; //가로 출력 크기
 	int PSizeY; //세로 출력 크기
 	int StartX; //가로 출력 시작지점
 	int StartY; //세로 출력 시작지점
+	int PrintMod; // 출력 방법 [세로출력][가로출력]
 }Blocks; //동물 블럭 묶음 구조체
 
 

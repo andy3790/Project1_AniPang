@@ -10,11 +10,29 @@ void LoadBlocksBitmap(Master* master) {
 }
 
 void SetBlockCount(Master* master, int x, int y) {
-	(*master).blocks.Vcount = x;
-	(*master).blocks.Hcount = y;
+	(*master).blocks.Hcount = x;
+	(*master).blocks.Vcount = y;
 	(*master).blocks.block = (Block*)malloc(sizeof(Block) * x);
 	(*master).blocks.PSizeX = (*master).rects.Client_Rect.right / x;
-	(*master).blocks.PSizeY = (*master).rects.Client_Rect.bottom * 3 / 5 / y;
-	(*master).blocks.StartX = (*master).rects.Client_Rect.left;
-	(*master).blocks.StartY = (*master).rects.Client_Rect.bottom / 5;
+	(*master).blocks.PSizeY = (*master).rects.Client_Rect.bottom * 4 / 5 / y;
+	if ((*master).blocks.PSizeX > (*master).blocks.PSizeY) { (*master).blocks.PSizeX = (*master).blocks.PSizeY; }
+	else { (*master).blocks.PSizeY = (*master).blocks.PSizeX; }
+
+	if ((*master).rects.Client_Rect.bottom / 5 < (*master).rects.Client_Rect.right - (*master).blocks.PSizeX * x) {
+		//가로 출력
+		(*master).blocks.StartX = (((*master).rects.Client_Rect.right - (*master).rects.Client_Rect.bottom / 5) - ((*master).blocks.PSizeX * x)) / 2;
+		(*master).blocks.StartY = ((*master).rects.Client_Rect.bottom * 4 / 5 - ((*master).blocks.PSizeY * y)) / 2 + (*master).rects.Client_Rect.bottom / 5;
+		(*master).blocks.PrintMod = BLOCK_PRINT_HORIZONTAL;
+	}
+	else {
+		//세로 출력
+		(*master).blocks.PSizeX = (*master).rects.Client_Rect.right / x;
+		(*master).blocks.PSizeY = (*master).rects.Client_Rect.bottom * 3 / 5 / y;
+		if ((*master).blocks.PSizeX > (*master).blocks.PSizeY) { (*master).blocks.PSizeX = (*master).blocks.PSizeY; }
+		else { (*master).blocks.PSizeY = (*master).blocks.PSizeX; }
+		(*master).blocks.StartX = ((*master).rects.Client_Rect.right - ((*master).blocks.PSizeX * x)) / 2;
+		(*master).blocks.StartY = ((*master).rects.Client_Rect.bottom * 3 / 5 - ((*master).blocks.PSizeY * y)) / 2 + (*master).rects.Client_Rect.bottom / 5;
+		(*master).blocks.PrintMod = BLOCK_PRINT_VERTICAL;
+	}
+
 }

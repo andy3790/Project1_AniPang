@@ -8,6 +8,18 @@ void Print2Client(Master master) {
 
 	// 더블버퍼링
 	Rectangle(master.hDCs.hMemDC, -1, -1, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom); //흰색 배경
+
+	//임시 UI 범위 출력
+	{
+		SelectObject(master.hDCs.hMemDC, (HBRUSH)GetStockObject(GRAY_BRUSH));
+		Rectangle(master.hDCs.hMemDC, 0, 0, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom / 5);
+		if (master.blocks.PrintMod == BLOCK_PRINT_HORIZONTAL) { //가로 모드일때
+			Rectangle(master.hDCs.hMemDC, master.blocks.StartX * 2 + master.blocks.PSizeX * master.blocks.Hcount, master.rects.Client_Rect.bottom / 5, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
+		}
+		else if (master.blocks.PrintMod == BLOCK_PRINT_VERTICAL) {	//세로 모드일때
+			Rectangle(master.hDCs.hMemDC, master.rects.Client_Rect.left, master.rects.Client_Rect.bottom * 4 / 5, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
+		}
+	}
 	
 	{ // 임시 동물 출력 체크
 		int i = 0;
