@@ -15,7 +15,7 @@ BOOL is_in_rect(int x, int y, RECT rect)
 }
 
 void Print2Client(Master master) {
-	HBITMAP oldBitmap, oldBlockBitmap;
+	HBITMAP oldBitmap;
 	master.hDCs.hMemDC = CreateCompatibleDC(master.hDCs.hDC);
 	oldBitmap = (HBITMAP)SelectObject(master.hDCs.hMemDC, master.hBITMAPs.hMemDC_Bit);
 	master.hDCs.hBlockDC = CreateCompatibleDC(master.hDCs.hMemDC);
@@ -27,48 +27,8 @@ void Print2Client(Master master) {
 	Print_UI_1(master);
 	Print_UI_2(master);
 	
-	{ // 임시 동물 출력 체크
-		int i = 0;
-		oldBlockBitmap = (HBITMAP)SelectObject(master.hDCs.hBlockDC, master.hBITMAPs.hBlock_Bit_DOG);
-		TransparentBlt(master.hDCs.hMemDC, master.blocks.StartX + master.blocks.PSizeX * i, master.blocks.StartY + master.blocks.PSizeY * i, master.blocks.PSizeX, master.blocks.PSizeY, master.hDCs.hBlockDC, 0, 0, 45, 45, Alpha_channel);
-		SelectObject(master.hDCs.hBlockDC, oldBlockBitmap);
-		i++;
-
-		oldBlockBitmap = (HBITMAP)SelectObject(master.hDCs.hBlockDC, master.hBITMAPs.hBlock_Bit_CHICK);
-		TransparentBlt(master.hDCs.hMemDC, master.blocks.StartX + master.blocks.PSizeX * i, master.blocks.StartY + master.blocks.PSizeY * i, master.blocks.PSizeX, master.blocks.PSizeY, master.hDCs.hBlockDC, 0, 0, 45, 45, Alpha_channel);
-		SelectObject(master.hDCs.hBlockDC, oldBlockBitmap);
-		i++;
-
-		oldBlockBitmap = (HBITMAP)SelectObject(master.hDCs.hBlockDC, master.hBITMAPs.hBlock_Bit_MOUSE);
-		TransparentBlt(master.hDCs.hMemDC, master.blocks.StartX + master.blocks.PSizeX * i, master.blocks.StartY + master.blocks.PSizeY * i, master.blocks.PSizeX, master.blocks.PSizeY, master.hDCs.hBlockDC, 0, 0, 45, 45, Alpha_channel);
-		SelectObject(master.hDCs.hBlockDC, oldBlockBitmap);
-		i++;
-
-		oldBlockBitmap = (HBITMAP)SelectObject(master.hDCs.hBlockDC, master.hBITMAPs.hBlock_Bit_CAT);
-		TransparentBlt(master.hDCs.hMemDC, master.blocks.StartX + master.blocks.PSizeX * i, master.blocks.StartY + master.blocks.PSizeY * i, master.blocks.PSizeX, master.blocks.PSizeY, master.hDCs.hBlockDC, 0, 0, 45, 45, Alpha_channel);
-		SelectObject(master.hDCs.hBlockDC, oldBlockBitmap);
-		i++;
-
-		oldBlockBitmap = (HBITMAP)SelectObject(master.hDCs.hBlockDC, master.hBITMAPs.hBlock_Bit_MONKEY);
-		TransparentBlt(master.hDCs.hMemDC, master.blocks.StartX + master.blocks.PSizeX * i, master.blocks.StartY + master.blocks.PSizeY * i, master.blocks.PSizeX, master.blocks.PSizeY, master.hDCs.hBlockDC, 0, 0, 45, 45, Alpha_channel);
-		SelectObject(master.hDCs.hBlockDC, oldBlockBitmap);
-		i++;
-
-		oldBlockBitmap = (HBITMAP)SelectObject(master.hDCs.hBlockDC, master.hBITMAPs.hBlock_Bit_PIG);
-		TransparentBlt(master.hDCs.hMemDC, master.blocks.StartX + master.blocks.PSizeX * i, master.blocks.StartY + master.blocks.PSizeY * i, master.blocks.PSizeX, master.blocks.PSizeY, master.hDCs.hBlockDC, 0, 0, 45, 45, Alpha_channel);
-		SelectObject(master.hDCs.hBlockDC, oldBlockBitmap);
-		i++;
-
-		oldBlockBitmap = (HBITMAP)SelectObject(master.hDCs.hBlockDC, master.hBITMAPs.hBlock_Bit_PIG);
-		TransparentBlt(master.hDCs.hMemDC, master.blocks.StartX + master.blocks.PSizeX * i, master.blocks.StartY + master.blocks.PSizeY * i, master.blocks.PSizeX, master.blocks.PSizeY, master.hDCs.hBlockDC, 0, 0, 45, 45, Alpha_channel);
-		SelectObject(master.hDCs.hBlockDC, oldBlockBitmap);
-		i++;
-
-		oldBlockBitmap = (HBITMAP)SelectObject(master.hDCs.hBlockDC, master.hBITMAPs.hBlock_Bit_PIG);
-		TransparentBlt(master.hDCs.hMemDC, master.blocks.StartX + master.blocks.PSizeX * i, master.blocks.StartY + master.blocks.PSizeY * i, master.blocks.PSizeX, master.blocks.PSizeY, master.hDCs.hBlockDC, 0, 0, 45, 45, Alpha_channel);
-		SelectObject(master.hDCs.hBlockDC, oldBlockBitmap);
-		i++;
-	}
+	// 임시 동물 출력 체크
+	TempPrintBlocks(master);
 
 	// 끝
 	BitBlt(master.hDCs.hDC, 0, 0, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom, master.hDCs.hMemDC, 0, 0, SRCCOPY);
