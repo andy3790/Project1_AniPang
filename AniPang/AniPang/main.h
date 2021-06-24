@@ -14,6 +14,9 @@
 #define BLOCK_PRINT_VERTICAL 1
 #define BLOCK_PRINT_HORIZONTAL 2
 
+// 알파채널
+#define Alpha_channel RGB(255, 0, 255)
+
 
 
 //변수 선언용 구조체
@@ -34,6 +37,7 @@ typedef struct {
 	HDC hDC;
 	HDC hMemDC;
 	HDC hBlockDC;
+	HDC hUiDC;
 
 }HDCs;
 
@@ -65,6 +69,17 @@ typedef struct Blocks {
 	int PrintMod; // 출력 방법 [세로출력][가로출력]
 }Blocks; //동물 블럭 묶음 구조체
 
+// 버튼 출력을 위한 구조체
+// 이 구조체의 비트맵은 커서가 올라갔을때와 안 올라갔을때의 이미지가 연결되어있는 형태로 저장
+typedef struct {
+	HBITMAP hBITMAP;
+	RECT rect;
+	BOOL is_on;
+}Butten;
+
+typedef struct {
+	Butten Pause;
+}Buttens;
 
 // 함수 인자용 구조체
 typedef struct {
@@ -74,7 +89,10 @@ typedef struct {
 	HDCs hDCs;
 	HBITMAPs hBITMAPs;
 	Blocks blocks;
+	Buttens buttens;
+	POINT cursor;
 }Master;// 임시 이름
+
 
 //main
 
@@ -88,6 +106,15 @@ void SetBlockCount(Master* master, int x, int y);
 //Map
 
 //Ui
+void set_buttens(Master* master);// 버튼 초기화 함수
+void Print_UI_1(Master master);// UI_1 출력함수
+void Print_UI_2(Master master);// UI_2 출력함수
+void Print_button(Master master, Butten butten);// 버튼 출력 함수
+void UI_MOUSEMOVE(Master* master);// UI 파일에서 사용하는 WM_MOUSEMOVE
 
 //Util
+void Print_background(Master master);//배경 출력함수
+BOOL is_in_rect(int x, int y, RECT rect);// 커서 위치 검사 함수
 void Print2Client(Master master); //최종 출력함수
+
+// 창의 크기가 달라짐에 따라 초기화해야하는 함수들 하나의 함수 안으로 묶어주기
