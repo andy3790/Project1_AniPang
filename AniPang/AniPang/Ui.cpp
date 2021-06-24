@@ -53,7 +53,7 @@ void Print_button(Master master, Butten butten)
 	}
 	else
 	{
-		TransparentBlt(master.hDCs.hMemDC, butten.rect.left, butten.rect.top, butten.rect.right - butten.rect.left, butten.rect.bottom - butten.rect.top, master.hDCs.hUiDC, bmp.bmWidth / 2, 0, bmp.bmWidth, bmp.bmHeight, Alpha_channel);
+		TransparentBlt(master.hDCs.hMemDC, butten.rect.left, butten.rect.top, butten.rect.right - butten.rect.left, butten.rect.bottom - butten.rect.top, master.hDCs.hUiDC, bmp.bmWidth / 2, 0, bmp.bmWidth/2, bmp.bmHeight, Alpha_channel);
 	}
 	SelectObject(master.hDCs.hBlockDC, oldBitmap);
 }
