@@ -98,8 +98,9 @@ typedef struct {
 
 //Blocks
 // 1-개 2-병아리 3-쥐 4-고양이 5-원숭이 6-돼지
-void LoadBlocksBitmap(Master* master);
-void SetBlockCount(Master* master, int x, int y);
+void LoadBlocksBitmap(Master* master); //블럭 비트맵 로드 함수
+void SetBlockCount(Master* master, int x, int y); //블럭 데이터 초기화 함수
+void TempPrintBlocks(Master master); //임시 동물 출력 체크
 
 //Item
 
