@@ -65,3 +65,17 @@ void UI_MOUSEMOVE(Master* master)
 	if (is_in_rect(master->cursor.x, master->cursor.y, master->buttens.Pause.rect))
 		master->buttens.Pause.is_on = TRUE;
 }
+
+void UI_LBUTTONDOWN(Master* master)
+{
+	if (is_in_rect(master->cursor.x, master->cursor.y, master->buttens.Pause.rect))
+	{
+		if (master->buttens.Pause.is_on)
+		{
+			if ((*master).booleans.is_pause)
+				(*master).booleans.is_pause = FALSE;
+			else
+				(*master).booleans.is_pause = TRUE;
+		}
+	}
+}

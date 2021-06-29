@@ -47,4 +47,5 @@ void Print2Client(Master master) {
 void Set_Default(Master* master)
 {
 	(*master).ints.Game_speed = Default_Game_Speed;
+	(*master).booleans.is_pause = FALSE;
 }

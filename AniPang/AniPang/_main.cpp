@@ -85,19 +85,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_SIZE:
-		master.hDCs.hDC = GetDC(hWnd);
-		DeleteObject(master.hBITMAPs.hMemDC_Bit);	//이미 만들어져있으니 삭제
-		GetClientRect(hWnd, &master.rects.Client_Rect);
-		master.hBITMAPs.hMemDC_Bit = CreateCompatibleBitmap(master.hDCs.hDC, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
-		SetBlockCount(&master, 8, 8); //블럭의 크기 초기화
-		ReleaseDC(hWnd, master.hDCs.hDC);
-		set_buttens(&master);// 버튼들 초기화
+		if (master.booleans.is_pause)
+		{
+			master.hDCs.hDC = GetDC(hWnd);
+			DeleteObject(master.hBITMAPs.hMemDC_Bit);	//이미 만들어져있으니 삭제
+			GetClientRect(hWnd, &master.rects.Client_Rect);
+			master.hBITMAPs.hMemDC_Bit = CreateCompatibleBitmap(master.hDCs.hDC, master.rects.Client_Rect.right, master.rects.Client_Rect.bottom);
+			SetBlockCount(&master, 8, 8); //블럭의 크기 초기화
+			ReleaseDC(hWnd, master.hDCs.hDC);
+			set_buttens(&master);// 버튼들 초기화
+		}
 		InvalidateRect(hWnd, NULL, FALSE);
 		break;
 	case WM_MOUSEMOVE:
 		master.cursor.x = LOWORD(lParam);
 		master.cursor.y = HIWORD(lParam);
 		UI_MOUSEMOVE(&master);
+		break;
+	case WM_LBUTTONDOWN:
+		UI_LBUTTONDOWN(&master);
 		break;
 	case WM_TIMER:
 		switch (wParam)

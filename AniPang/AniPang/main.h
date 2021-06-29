@@ -26,7 +26,7 @@
 
 //변수 선언용 구조체
 typedef struct {
-	
+	BOOL is_pause;
 }Booleans;
 
 typedef struct {
@@ -123,6 +123,7 @@ void Print_UI_1(Master master);// UI_1 출력함수
 void Print_UI_2(Master master);// UI_2 출력함수
 void Print_button(Master master, Butten butten);// 버튼 출력 함수
 void UI_MOUSEMOVE(Master* master);// UI 파일에서 사용하는 WM_MOUSEMOVE
+void UI_LBUTTONDOWN(Master* master);// UI 파일에서 사용하는 WM_LBUTTONDOWN
 
 //Util
 void Print_background(Master master);//배경 출력함수
