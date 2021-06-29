@@ -71,6 +71,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		SetBlockCount(&master, 8, 8); //블럭의 크기 초기화
 		ReleaseDC(hWnd, master.hDCs.hDC);
 		set_buttens(&master);// 버튼들 초기화
+		LoadMapBitmap(&master);// Map 파일의 비트맵 로드
+		Set_Default(&master);
+		SetTimer(hWnd, Timer_test, master.ints.Game_speed, NULL);//테스트용
 		break;
 	case WM_KEYDOWN:
 		if (wParam == 'q' || wParam == 'Q' || wParam == VK_ESCAPE) { DestroyWindow(hWnd); } //임시 종료 키 설정 q/Q/ESC
@@ -92,12 +95,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		InvalidateRect(hWnd, NULL, FALSE);
 		break;
 	case WM_MOUSEMOVE:
-	{
 		master.cursor.x = LOWORD(lParam);
 		master.cursor.y = HIWORD(lParam);
 		UI_MOUSEMOVE(&master);
-	}
-	break;
+		break;
+	case WM_TIMER:
+		switch (wParam)
+		{
+		case Timer_test:
+			InvalidateRect(hWnd, NULL, FALSE);
+		}
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

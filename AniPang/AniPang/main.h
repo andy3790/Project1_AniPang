@@ -17,6 +17,11 @@
 // 알파채널
 #define Alpha_channel RGB(255, 0, 255)
 
+// 기본 설정값
+#define Default_Game_Speed 16
+
+// 타이머 숫자(?)
+#define Timer_test 0
 
 
 //변수 선언용 구조체
@@ -25,7 +30,7 @@ typedef struct {
 }Booleans;
 
 typedef struct {
-
+	int Game_speed;
 }Ints;
 
 typedef struct {
@@ -38,6 +43,7 @@ typedef struct {
 	HDC hMemDC;
 	HDC hBlockDC;
 	HDC hUiDC;
+	HDC hMapDC;
 
 }HDCs;
 
@@ -49,6 +55,8 @@ typedef struct {
 	HBITMAP hBlock_Bit_CAT;		// 4
 	HBITMAP hBlock_Bit_MONKEY;	// 5
 	HBITMAP hBlock_Bit_PIG;		// 6
+
+	HBITMAP hBackgroun_Bit_Map;
 
 }HBITMAPs;
 
@@ -105,6 +113,9 @@ void TempPrintBlocks(Master master); //임시 동물 출력 체크
 //Item
 
 //Map
+void LoadMapBitmap(Master* master);
+void Print_Map_background(Master master);
+void Print_Map(Master master);
 
 //Ui
 void set_buttens(Master* master);// 버튼 초기화 함수
@@ -117,5 +128,6 @@ void UI_MOUSEMOVE(Master* master);// UI 파일에서 사용하는 WM_MOUSEMOVE
 void Print_background(Master master);//배경 출력함수
 BOOL is_in_rect(int x, int y, RECT rect);// 커서 위치 검사 함수
 void Print2Client(Master master); //최종 출력함수
+void Set_Default(Master* master); // 디폴트값 설정
 
 // 창의 크기가 달라짐에 따라 초기화해야하는 함수들 하나의 함수 안으로 묶어주기

@@ -20,13 +20,16 @@ void Print2Client(Master master) {
 	oldBitmap = (HBITMAP)SelectObject(master.hDCs.hMemDC, master.hBITMAPs.hMemDC_Bit);
 	master.hDCs.hBlockDC = CreateCompatibleDC(master.hDCs.hMemDC);
 	master.hDCs.hUiDC = CreateCompatibleDC(master.hDCs.hMemDC);
-
+	master.hDCs.hMapDC = CreateCompatibleDC(master.hDCs.hMemDC);
 	// 더블버퍼링
+	// 기본 배경 출력
 	Print_background(master);
 	//임시 UI 범위 출력
 	Print_UI_1(master);
 	Print_UI_2(master);
 	
+	// 실질적 게임이 출력될 공간 Map?출력
+	Print_Map(master);
 	// 임시 동물 출력 체크
 	TempPrintBlocks(master);
 
@@ -36,6 +39,12 @@ void Print2Client(Master master) {
 	// 삭제
 	DeleteDC(master.hDCs.hBlockDC);
 	DeleteDC(master.hDCs.hUiDC);
+	DeleteDC(master.hDCs.hMapDC);
 	SelectObject(master.hDCs.hMemDC, oldBitmap);
 	DeleteDC(master.hDCs.hMemDC);
+}
+
+void Set_Default(Master* master)
+{
+	(*master).ints.Game_speed = Default_Game_Speed;
 }
